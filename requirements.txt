@@ -1,0 +1,51 @@
+# Core scientific stack
+numpy
+scipy
+pandas
+matplotlib
+seaborn
+scikit-learn
+statsmodels
+
+# Jupyter
+jupyterlab
+notebook
+nbclassic
+ipywidgets
+jupytext
+ipykernel
+nbconvert
+jupyterlab_widgets
+ipympl
+nbcommands
+
+# Visualization
+plotly
+bqplot
+voila
+panel
+opencv-python
+
+# ML (CPU by default)
+torch
+torchvision
+torchaudio
+umap-learn
+
+# Build tools
+cmake
+ninja
+pybind11
+
+# Web + utility
+flask
+
+# Bio and Stats
+biopython
+fasta
+
+# Other
+pyclustering
+nltk
+multiprocess
+jarvis-tools
