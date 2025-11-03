@@ -1,5 +1,6 @@
 import os
 import torch
+import numpy as np
 from torch.utils.data import Dataset
 from torch_geometric.data import Data
 from ase import Atoms
@@ -22,7 +23,8 @@ def xyz_to_graph(base_dir, material_id, cutoff=5.0):
     Z = atoms.get_atomic_numbers()
     i, j, _ = neighbor_list('ijS', atoms, cutoff=cutoff)
 
-    edge_index = torch.tensor([i, j], dtype=torch.long)
+    #edge_index = torch.tensor([i, j], dtype=torch.long)
+    edge_index = torch.from_numpy(np.vstack((i, j))).long()
     x = torch.tensor(Z, dtype=torch.float32).unsqueeze(1)
     pos = torch.tensor(positions, dtype=torch.float32)
 
