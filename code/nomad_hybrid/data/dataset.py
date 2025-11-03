@@ -31,16 +31,21 @@ def xyz_to_graph(base_dir, material_id, cutoff=5.0):
     return Data(x=x, edge_index=edge_index, pos=pos)
 
 class HybridNomadDataset(Dataset):
-    def __init__(self, df, base_dir, scaler=None):
+    def __init__(self, df, base_dir, scaler=None, inference=False):
         self.df = df.copy()
         self.base_dir = base_dir
         self.scaler = scaler
+        self.inference = inference
 
-        self.tabular = df.drop(columns=['id', 'formation_energy_ev_natom', 'bandgap_energy_ev']).values
+        if inference:
+            self.tabular = df.drop(columns=['id']).values
+            self.targets = None
+        else:
+            self.tabular = df.drop(columns=['id', 'formation_energy_ev_natom', 'bandgap_energy_ev']).values
+            self.targets = df[['formation_energy_ev_natom', 'bandgap_energy_ev']].values
+
         if scaler:
             self.tabular = scaler.transform(self.tabular)
-
-        self.targets = df[['formation_energy_ev_natom', 'bandgap_energy_ev']].values
 
     def __len__(self):
         return len(self.df)
@@ -50,5 +55,9 @@ class HybridNomadDataset(Dataset):
         material_id = int(row['id'])
         tabular_feat = torch.tensor(self.tabular[idx], dtype=torch.float32)
         graph = xyz_to_graph(self.base_dir, material_id)
-        y = torch.tensor(self.targets[idx], dtype=torch.float32)
-        return tabular_feat, graph, y
+
+        if self.inference:
+            return (tabular_feat, graph)
+        else:
+            y = torch.tensor(self.targets[idx], dtype=torch.float32)
+            return tabular_feat, graph, y
