@@ -1,3 +1,9 @@
+# temp data files
+*.pkl
+*.csv
+*.hse
+*.mbj
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
