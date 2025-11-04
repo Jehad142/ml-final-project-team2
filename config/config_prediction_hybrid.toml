@@ -1,0 +1,14 @@
+[paths]
+xyz_dir = "/shared/data/nomad2018/train"
+load_path = "/shared/data/checkpoints/hybrid.pt"
+scaler_path = "/shared/data/checkpoints/scaler.pkl"
+
+[model]
+type = "hybrid"
+epochs = 30
+batch_size = 64
+
+[inference]
+predict = true
+test_csv = "/shared/data/nomad2018/test.csv"
+output = "predictions.csv"

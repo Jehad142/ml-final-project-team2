@@ -1,5 +1,6 @@
 import os
 import torch
+import joblib
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -10,17 +11,21 @@ from tqdm import tqdm
 from nomad_hybrid.models import HybridModel, NomadMLP
 from nomad_hybrid.data import HybridNomadDataset
 
-#def run_training(csv_path, xyz_dir, model_type="hybrid", epochs=30):
-def run_training(csv_path, xyz_dir, model_type="hybrid", epochs=30, save_path=None, load_path=None):
-    print(f"Loading data from: {csv_path}")
+def run_training(train_csv, xyz_dir, model_type, epochs, save_path, load_path, scaler_path):
+    print(f"Loading data from: {train_csv}")
     print(f"Geometry directory: {xyz_dir}")
     print(f"Model type: {model_type}")
+    print(f"Epochs: {epochs}")
+    print(f"Model save path: {save_path}")
+    print(f"Model load path: {load_path}") 
+    print(f"Scaler path: {scaler_path}")
 
     # Load and preprocess data
-    df = pd.read_csv(csv_path)
+    df = pd.read_csv(train_csv)
     scaler = StandardScaler()
     X = df.drop(columns=['id', 'formation_energy_ev_natom', 'bandgap_energy_ev']).values
     scaler.fit(X)
+    joblib.dump(scaler, scaler_path)
 
     df_train, df_val = train_test_split(df, test_size=0.1, random_state=42)
     train_ds = HybridNomadDataset(df_train, xyz_dir, scaler)
