@@ -1,5 +1,6 @@
 import os
 import torch
+import joblib
 import pandas as pd
 from tqdm import tqdm
 from torch_geometric.loader import DataLoader
@@ -8,16 +9,20 @@ from sklearn.preprocessing import StandardScaler
 from nomad_hybrid.models import HybridModel, NomadMLP
 from nomad_hybrid.data import HybridNomadDataset
 
-def run_inference(test_csv, xyz_dir, model_type, load_path, output_path):
+def run_inference(test_csv, xyz_dir, model_type, load_path, output_path, scaler_path):
     # load test data
     df = pd.read_csv(test_csv)
     if 'id' not in df.columns:
         raise ValueError("Test CSV must contain an 'id' column.")
 
     # prepare tabular features
-    scaler = StandardScaler()
     X = df.drop(columns=['id']).values
-    scaler.fit(X)  # in production, we ought to load scaler from training instead
+    if scaler_path==None:
+        scaler = StandardScaler()
+        scaler.fit(X)  # in production, we ought to load scaler from training instead
+    else: 
+        scaler = joblib.load(scaler_path)
+        X = scaler.transform(X) 
 
     # build dataset and loader
     test_ds = HybridNomadDataset(df, xyz_dir, scaler, inference=True)

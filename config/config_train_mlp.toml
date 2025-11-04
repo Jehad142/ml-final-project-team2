@@ -1,0 +1,11 @@
+[paths]
+train_csv = "/shared/data/nomad2018/train.csv"
+xyz_dir = "/shared/data/nomad2018/train"
+save_path = "/shared/data/checkpoints/mlp.pt"
+load_path = "/shared/data/checkpoints/mlp.pt"
+scaler_path = "/shared/data/checkpoints/scaler_mlp.pkl"
+
+[model]
+type = "mpl"
+epochs = 15 
+batch_size = 64
