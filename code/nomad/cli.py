@@ -50,10 +50,6 @@ def main():
     # Run training or inference
     print("Running in inference mode" if args.predict else "Running in training mode")
 
-
-
-
-
     if args.predict:
         run_inference(
             test_csv=args.test_csv,
