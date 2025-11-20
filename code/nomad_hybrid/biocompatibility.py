@@ -1,5 +1,8 @@
 import pandas as pd 
 import re 
+import numpy as np
+import logging
+
 
 # Based on just OSHA
 toxic_elements = = [
@@ -11,8 +14,78 @@ toxic_elements = = [
     'Ni',  # Nickel  
     'Cr',  # Chromium
     'Ba',  # Barium
-] # NEed to add to this list ?...  
+]
 
+logger = logging.getLogger(__name__)
+
+def apply_filters(df: pd.DataFrame, config: dict) -> pd.DataFrame:
+    """
+    Calculates a 'biocompatibility_score' for the JARVIS-DFT dataset.
+    
+    This function does NOT remove any rows. It adds a score column
+    so that downstream models can learn the relationship between 
+    toxicity/stability and the target properties.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        
+    config : dict
+       
+    
+    Returns
+    -------
+    pd.DataFrame
+        Original dataset with new 'biocompatibility_score' column.
+    """
+    # 1. Extract Parameters 
+    toxic_elems = config["filters"]["toxic_elements"]
+    formula_col = config["columns"]["formula"] 
+    ehull_col = config["columns"]["ehull"]    
+    
+    # 2.Copy df
+    df_scored = df.copy()
+    
+    
+    # 3. Determine Toxicity (Flagging)
+    # Matches element symbol ONLY if followed by a number, uppercase letter, or end of string.
+    # This prevents matching 'P' (Phosphorus) inside 'Pb' (Lead).
+    toxic_pattern = r'(' + r'|'.join([re.escape(el) + r'(\d|(?=[A-Z])|$)' for el in toxic_elements]) + r')'
+    
+    df_scored["has_toxic_element"] = df_scored[formula_col].str.contains(toxic_pattern, regex=True, na=False)
+    
+    # 4. Determine Stability 
+    # Stable if energy above hull is near 0. We allow < 0.1 
+    if ehull_col in df_scored.columns:
+        df_scored["is_stable"] = df_scored[ehull_col] <= 0.10
+
+    # 5. Calculate Composite Score (0-100)
+    def calculate_bio_score(row):
+        score = 100
+        
+        # A. Penalty for Toxic Elements (-50)
+        if row["has_toxic_element"]:
+            score -= 50
+            # Redemption: If it's very stable\ (+20)
+            if row["is_stable"]:
+                score += 20
+        
+        # B. Penalty for Instability (-30)
+        if not row["is_stable"]:
+            score -= 30
+            
+        return max(0, score)
+
+    df_scored["biocompatibility_score"] = df_scored.apply(calculate_bio_score, axis=1)
+    
+    return df_scored
+    
+    
+    
+    
+    
+
+'''
 def filter_biocompatibility(df):
     
     """
@@ -63,3 +136,4 @@ def filter_biocompatibility(df):
     print(f"  Biocompatible materials remaining: {clean_count}")
 
     return clean_df
+    '''
