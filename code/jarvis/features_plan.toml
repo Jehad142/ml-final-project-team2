@@ -1,0 +1,258 @@
+# Feature Plan
+
+[features.jid]
+plan = "drop"
+notes = "Identifier only"
+
+[features.spg_number]
+plan = "numeric"
+notes = "Convert to int; crystallographic symmetry"
+
+[features.spg_symbol]
+plan = "categorical"
+notes = "One-hot/frequency encode"
+
+[features.formula]
+plan = "flatten"
+notes = "Bag-of-elements indicators, composition vectors"
+
+[features.formation_energy_peratom]
+plan = "numeric"
+notes = "Keep as float"
+
+[features.func]
+plan = "categorical"
+notes = "Encode functional used"
+
+[features.optb88vdw_bandgap]
+plan = "numeric"
+notes = "Bandgap in eV"
+
+[features.atoms]
+plan = "network"
+notes = "Use atomic graph featurizer (lattice, coords, elements)"
+
+[features.slme]
+plan = "numeric"
+notes = "Convert to float if available"
+
+[features.magmom_oszicar]
+plan = "numeric"
+notes = "Magnetic moment scalar"
+
+[features.spillage]
+plan = "numeric"
+notes = "Topological indicator"
+
+[features.elastic_tensor]
+plan = "flatten"
+notes = "Extract Voigt averages, shear/bulk moduli"
+
+[features.effective_masses_300K]
+plan = "flatten"
+notes = "Extract electron/hole masses"
+
+[features.kpoint_length_unit]
+plan = "numeric"
+notes = "Convert to int"
+
+[features.maxdiff_mesh]
+plan = "drop"
+notes = "Convergence diagnostic"
+
+[features.maxdiff_bz]
+plan = "drop"
+notes = "Convergence diagnostic"
+
+[features.encut]
+plan = "numeric"
+notes = "Plane-wave cutoff energy"
+
+[features.optb88vdw_total_energy]
+plan = "numeric"
+notes = "Keep as float"
+
+[features.epsx]
+plan = "combine"
+notes = "Dielectric constant along x-axis"
+
+[features.epsy]
+plan = "combine"
+notes = "Dielectric constant along y-axis"
+
+[features.epsz]
+plan = "combine"
+notes = "Dielectric constant along z-axis"
+
+[features.mepsx]
+plan = "numeric"
+notes = "Macroscopic dielectric constant along x-axis"
+
+[features.mepsy]
+plan = "numeric"
+notes = "Macroscopic dielectric constant along y-axis"
+
+[features.mepsz]
+plan = "numeric"
+notes = "Macroscopic dielectric constant along z-axis"
+
+[features.modes]
+plan = "flatten"
+notes = "Extract mean/std/min/max of phonon modes"
+
+[features.magmom_outcar]
+plan = "numeric"
+notes = "Magnetic moment scalar"
+
+[features.max_efg]
+plan = "numeric"
+notes = "Electric field gradient"
+
+[features.avg_elec_mass]
+plan = "numeric"
+notes = "Average electron effective mass"
+
+[features.avg_hole_mass]
+plan = "numeric"
+notes = "Average hole effective mass"
+
+[features.icsd]
+plan = "drop"
+notes = "Identifier"
+
+[features.dfpt_piezo_max_eij]
+plan = "numeric"
+notes = "Piezoelectric strain coefficient"
+
+[features.dfpt_piezo_max_dij]
+plan = "numeric"
+notes = "Piezoelectric stress coefficient"
+
+[features.dfpt_piezo_max_dielectric]
+plan = "numeric"
+notes = "Maximum dielectric constant from DFPT"
+
+[features.dfpt_piezo_max_dielectric_electronic]
+plan = "numeric"
+notes = "Electronic contribution to dielectric constant"
+
+[features.dfpt_piezo_max_dielectric_ionic]
+plan = "numeric"
+notes = "Ionic contribution to dielectric constant"
+
+[features.max_ir_mode]
+plan = "numeric"
+notes = "Maximum infrared-active phonon mode frequency"
+
+[features.min_ir_mode]
+plan = "numeric"
+notes = "Minimum infrared-active phonon mode frequency"
+
+[features.n-Seebeck]
+plan = "numeric"
+notes = "Seebeck coefficient for n-type carriers"
+
+[features.p-Seebeck]
+plan = "numeric"
+notes = "Seebeck coefficient for p-type carriers"
+
+[features.n-powerfact]
+plan = "numeric"
+notes = "Power factor for n-type carriers"
+
+[features.p-powerfact]
+plan = "numeric"
+notes = "Power factor for p-type carriers"
+
+[features.ncond]
+plan = "numeric"
+notes = "Electrical conductivity for n-type carriers"
+
+[features.pcond]
+plan = "numeric"
+notes = "Electrical conductivity for p-type carriers"
+
+[features.nkappa]
+plan = "numeric"
+notes = "Thermal conductivity for n-type carriers"
+
+[features.pkappa]
+plan = "numeric"
+notes = "Thermal conductivity for p-type carriers"
+
+[features.ehull]
+plan = "numeric"
+notes = "Energy above convex hull (stability metric)"
+
+[features.Tc_supercon]
+plan = "numeric"
+notes = "Critical temperature for superconductivity"
+
+[features.dimensionality]
+plan = "categorical"
+notes = "Encode (bulk, layered, etc.)"
+
+[features.efg]
+plan = "flatten"
+notes = "Tensor → scalar summaries"
+
+[features.xml_data_link]
+plan = "drop"
+notes = "Identifier"
+
+[features.typ]
+plan = "categorical"
+notes = "Encode (bulk, monolayer, etc.)"
+
+[features.exfoliation_energy]
+plan = "numeric"
+notes = "Exfoliation energy (eV/atom)"
+
+[features.spg]
+plan = "drop"
+notes = "Duplicate of spg_number"
+
+[features.crys]
+plan = "categorical"
+notes = "Encode crystal system"
+
+[features.density]
+plan = "numeric"
+notes = "Material density (g/cm³)"
+
+[features.poisson]
+plan = "numeric"
+notes = "Poisson ratio"
+
+[features.raw_files]
+plan = "drop"
+notes = "Structural artifact"
+
+[features.nat]
+plan = "numeric"
+notes = "Number of atoms in unit cell"
+
+[features.bulk_modulus_kv]
+plan = "numeric"
+notes = "Bulk modulus (Voigt average, GPa)"
+
+[features.shear_modulus_gv]
+plan = "numeric"
+notes = "Shear modulus (Voigt average, GPa)"
+
+[features.mbj_bandgap]
+plan = "numeric"
+notes = "Bandgap from MBJ functional"
+
+[features.hse_gap]
+plan = "numeric"
+notes = "Bandgap from HSE functional"
+
+[features.reference]
+plan = "drop"
+notes = "External ID"
+
+[features.search]
+plan = "drop"
+notes = "Search string artifact"
+
