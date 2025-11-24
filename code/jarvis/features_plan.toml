@@ -13,8 +13,10 @@ plan = "categorical"
 notes = "One-hot/frequency encode"
 
 [features.formula]
-plan = "flatten"
-notes = "Bag-of-elements indicators, composition vectors"
+#plan = "flatten"
+#notes = "Bag-of-elements indicators, composition vectors"
+plan = "drop"
+notes = "Dropped from tabular ML; reserved for future tokener; FIXME!!"
 
 [features.formation_energy_peratom]
 plan = "numeric"
@@ -29,8 +31,10 @@ plan = "numeric"
 notes = "Bandgap in eV"
 
 [features.atoms]
-plan = "network"
-notes = "Use atomic graph featurizer (lattice, coords, elements)"
+#plan = "network"
+#notes = "Use atomic graph featurizer (lattice, coords, elements)"
+plan = "drop"
+notes = "Dropped from tabular ML; reserved for future graph featurizer; FIXME!!"
 
 [features.slme]
 plan = "numeric"
