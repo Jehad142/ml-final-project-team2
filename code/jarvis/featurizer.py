@@ -94,6 +94,41 @@ def drop_residual_non_scalars(df: pd.DataFrame) -> pd.DataFrame:
             to_drop.append(col)
     return df.drop(columns=to_drop, errors="ignore")
 
+def report_features(df: pd.DataFrame) -> None:
+    """Log a summary of feature types and problematic values."""
+    numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
+    cat_cols = df.select_dtypes(include=["object", "category"]).columns.tolist()
+
+    logger.info(f"Numeric feature count: {len(numeric_cols)}")
+    logger.info(f"Categorical feature count: {len(cat_cols)}")
+
+    # NaN counts
+    nan_counts = df.isna().sum()
+    nan_summary = nan_counts[nan_counts > 0].sort_values(ascending=False)
+    if not nan_summary.empty:
+        logger.info("Columns with NaN values:\n" + nan_summary.to_string())
+
+    # Inf counts
+    inf_mask = np.isinf(df.select_dtypes(include=[np.number]))
+    if inf_mask.any().any():
+        bad_cols = inf_mask.any()[inf_mask.any()].index.tolist()
+        logger.warning(f"Columns with inf values: {bad_cols}")
+
+    # Residual non-scalars
+    residual_lists = [c for c in df.columns if df[c].apply(lambda v: isinstance(v, (list, tuple))).any()]
+    residual_dicts = [c for c in df.columns if df[c].apply(lambda v: isinstance(v, dict)).any()]
+    if residual_lists or residual_dicts:
+        logger.warning(f"Residual list columns: {residual_lists}")
+        logger.warning(f"Residual dict columns: {residual_dicts}")
+
+
+def final_sweep(df: pd.DataFrame) -> pd.DataFrame:
+    """Replace inf with NaN and drop residual non-scalars."""
+    df = df.replace([np.inf, -np.inf], np.nan)
+    df = drop_residual_non_scalars(df)
+    df = drop_empty_features(df)
+    return df
+
 
 
 
@@ -158,6 +193,10 @@ class Featurizer:
         df = sanitize_features(df)
         df = drop_residual_non_scalars(df)
         df = drop_empty_features(df)
+
+        # Final sweep: replace inf, drop residuals, report
+        df = final_sweep(df)
+        report_features(df)
 
         return df
 
