@@ -9,9 +9,11 @@ logger.setLevel(logging.INFO)
 # --- Utility functions ---
 
 def normalize_missing(df: pd.DataFrame) -> pd.DataFrame:
-    """Replace sentinel strings with NaN and infer dtypes."""
-    df = df.replace({"na": np.nan, "NA": np.nan, "NaN": np.nan, "": np.nan})
-    df = df.infer_objects(copy=False)
+    """Replace sentinel strings with NaN and infer dtypes explicitly."""
+    df = (
+        df.replace({"na": np.nan, "NA": np.nan, "NaN": np.nan, "": np.nan})
+          .infer_objects(copy=False)
+    )
     return df
 
 def coerce_numeric(df, cols):
@@ -91,6 +93,9 @@ def drop_residual_non_scalars(df: pd.DataFrame) -> pd.DataFrame:
         if df[col].apply(lambda v: isinstance(v, (list, tuple, dict))).any():
             to_drop.append(col)
     return df.drop(columns=to_drop, errors="ignore")
+
+
+
 
 # --- Featurizer class ---
 
