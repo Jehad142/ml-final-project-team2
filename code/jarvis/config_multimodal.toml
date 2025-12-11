@@ -1,0 +1,94 @@
+[project]
+name = "Transparent Nontoxic Semiconductors (GNN+CNN)"
+version = "1.0"
+author = "Brent Allen Thorne"
+
+[system]
+path = "./"
+
+[data]
+store_dir = "/shared/data/jarvis"
+dataset_name = "dft_3d"
+
+[filters]
+# Bandgap thresholds (in eV)
+bandgap_column = "optb88vdw_bandgap"
+semiconductor_min = 0.5
+semiconductor_max = 4.0
+transparent_min = 3.0
+
+# Dielectric thresholds
+min_eps = 1.0
+max_eps = 10.0
+
+# Energy above convex hull (eV/atom)
+ehull = 0.1
+
+# Toxic elements to exclude
+toxic_elements = ["Pb", "Cd", "Hg", "As", "Se"]
+
+[logging]
+enable = true
+level = "INFO"
+file = "/shared/data/jarvis/project_multimodal.log"
+
+# -------------------------------
+# ML model configuration
+# -------------------------------
+
+[model]
+threshold = 0.5
+
+# Numeric feature columns
+num_cols = [
+    "formation_energy_peratom", "optb88vdw_bandgap",
+    "slme", "magmom_oszicar", "spillage", "kpoint_length_unit",
+    "optb88vdw_total_energy", "epsx", "epsy", "epsz", "density",
+    "poisson", "nat", "bulk_modulus_kv", "shear_modulus_gv",
+    "mbj_bandgap", "hse_gap", "ehull", "Tc_supercon"
+]
+
+
+
+[model.devices]
+model = "cpu"
+#model = "cuda"
+
+[model.categorical.spg_number]
+vocab_size = 214
+embed_dim = 50
+
+[model.categorical.func]
+vocab_size = 2
+embed_dim = 1
+
+[model.categorical.dimensionality]
+vocab_size = 8
+embed_dim = 4
+
+[model.categorical.typ]
+vocab_size = 2
+embed_dim = 1
+
+[model.categorical.crys]
+vocab_size = 8
+embed_dim = 4
+
+[model.formula]
+num_elements = 89
+embed_dim = 32
+
+[model.mlp]
+hidden1 = 128
+hidden2 = 64
+dropout = 0.3
+
+[model.graph]
+atom_embed_dim = 64
+edge_feat_dim = 4
+radius = 5.0
+max_neighbors = 24
+
+[model.training]
+batch_size = 64
+epochs = 200
