@@ -57,6 +57,8 @@ jarvis-tools
 toml
 ase
 #qmpy #OQMD
+shap
+xgboost
 
 # Extra index for PyTorch CUDA wheels
 --extra-index-url https://download.pytorch.org/whl/cu128
