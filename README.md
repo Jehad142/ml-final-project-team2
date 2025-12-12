@@ -22,6 +22,17 @@ On WSL, install Docker Desktop for Windows and enable WSL integration. Verify in
 docker --version
 ```
 
+Setup Docker user
+```
+sudo groupadd docker        # creates the group if it doesn’t exist
+sudo usermod -aG docker $USER
+```
+
+Then log out and back in (or run `newgrp docker`) so the group membership takes effect. After that you can run:
+```
+docker run hello-world
+```
+
 To build the image, from the project root (`ml-final-project-team2`) run:
 
 ```bash
