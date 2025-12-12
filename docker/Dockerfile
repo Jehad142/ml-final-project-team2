@@ -28,17 +28,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN apt-get purge -y python3-blinker || true
 
 COPY requirements.txt /tmp/requirements.txt
-RUN pip install --break-system-packages --no-cache-dir -r /tmp/requirements.txt
+#RUN pip install --break-system-packages --no-cache-dir -r /tmp/requirements.txt
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3.12-dev
+
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
 # Install JAX with CUDA 12 support
 #RUN pip install --upgrade "jax[cuda12]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 
 #Jupyter to get more stupider...
-RUN pip install --no-cache-dir "markupsafe<2.1" \
-    && pip install --upgrade jinja2 jupyterlab jupyter_server ipywidgets jupytext ipykernel nbconvert jupyterlab_widgets ipympl nbcommands nbconvert
+#RUN pip install --no-cache-dir "markupsafe<2.1" \
+#    && pip install --upgrade jinja2 jupyterlab jupyter_server ipywidgets jupytext ipykernel nbconvert jupyterlab_widgets ipympl nbcommands nbconvert
 
 WORKDIR /workspace
 #CMD ["python"]

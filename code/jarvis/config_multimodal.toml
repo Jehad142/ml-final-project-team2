@@ -7,7 +7,7 @@ author = "Brent Allen Thorne"
 path = "./"
 
 [data]
-store_dir = "./data/jarvis"
+store_dir = "/workspace/data/jarvis"
 dataset_name = "dft_3d"
 
 [filters]
@@ -30,7 +30,7 @@ toxic_elements = ["Pb", "Cd", "Hg", "As", "Se"]
 [logging]
 enable = true
 level = "INFO"
-file = "./data/jarvis/project_gnn_v2_30_epoch.log"
+file = "/workspace/data/jarvis/project_gnn_v2_30_epoch.log"
 
 # -------------------------------
 # ML model configuration
@@ -94,4 +94,4 @@ batch_size = 1024
 epochs = 0
 
 [model.checkpoint]
-path = "./data/jarvis/gnn_v2_30_epoch_checkpoint.pth"
+path = "/workspace/data/jarvis/gnn_v2_30_epoch_checkpoint.pth"

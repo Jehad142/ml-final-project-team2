@@ -4,6 +4,7 @@ import numpy as np
 import torch
 import matplotlib.pyplot as plt
 import seaborn as sns
+from tqdm import tqdm
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support, roc_auc_score, confusion_matrix, classification_report
 
 def evaluate(model, loader, threshold=0.5, title="Evaluation", base_name=None, store_dir=None):
@@ -11,7 +12,8 @@ def evaluate(model, loader, threshold=0.5, title="Evaluation", base_name=None, s
     y_true, y_prob = [], []
 
     with torch.no_grad():
-        for X_num, X_cat_dict, counts, graphs, y in loader:
+        #for X_num, X_cat_dict, counts, graphs, y in loader:
+        for X_num, X_cat_dict, counts, graphs, y in tqdm(loader, desc="Evaluating", unit="batch"):
             logits = model(X_num, X_cat_dict, counts, graphs)
             probs = torch.sigmoid(logits).cpu().numpy().ravel()
             y_prob.extend(probs.tolist())
