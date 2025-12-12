@@ -1,4 +1,9 @@
+# NOMAD CLI Model
+
+**Note:** This codebase is deprecated. It was an intermediate step in developing the material discovery thresholds that now power the JARVIS multimodal models. While the NOMAD implementation provided valuable insights into band gap and stability filtering, it is no longer maintained. For current work and reproducible pipelines, please use the JARVIS multimodal framework, which integrates these thresholds alongside expanded datasets and improved model architectures.
+
 ## Usage
+
 
 ### Setup
 
