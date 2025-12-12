@@ -38,7 +38,7 @@ run:
 
 
 # Run the container (w/gpu Jupyter Lab on port 8888)
-run:
+run_gpu:
 	@echo "[run] Launching container: $(CONTAINER)"
 	@HOST_WORKSPACE=$$(cd .. && pwd); \
     if [ ! -d $$HOST_WORKSPACE ]; then \
