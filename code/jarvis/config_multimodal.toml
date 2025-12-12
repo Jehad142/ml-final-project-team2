@@ -30,14 +30,14 @@ toxic_elements = ["Pb", "Cd", "Hg", "As", "Se"]
 [logging]
 enable = true
 level = "INFO"
-file = "/shared/data/jarvis/project_multimodal.log"
+file = "/shared/data/jarvis/project_gnn_v2_30_epoch.log"
 
 # -------------------------------
 # ML model configuration
 # -------------------------------
 
 [model]
-threshold = 0.5
+threshold = 0.91
 
 # Numeric feature columns
 num_cols = [
@@ -90,5 +90,8 @@ radius = 5.0
 max_neighbors = 24
 
 [model.training]
-batch_size = 64
-epochs = 200
+batch_size = 1024
+epochs = 0
+
+[model.checkpoint]
+path = "/shared/data/jarvis/gnn_v2_30_epoch_checkpoint.pth"
