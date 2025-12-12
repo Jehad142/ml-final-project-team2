@@ -1,0 +1,62 @@
+# OQMD
+#qmpy
+
+# Our Core scientific stack
+numpy
+scipy
+pandas
+matplotlib
+seaborn
+scikit-learn
+statsmodels
+
+# Jupyter
+jupyterlab
+notebook
+nbclassic
+ipywidgets
+jupytext
+ipykernel
+nbconvert
+jupyterlab_widgets
+ipympl
+nbcommands
+nbconvert
+
+# Visualization
+plotly
+bqplot
+voila
+panel
+#opencv-python
+
+# ML + GPU
+torch==2.8.0+cu128
+torchvision==0.23.0+cu128
+torchaudio==2.8.0+cu128
+umap-learn
+
+# Build tools
+cmake
+ninja
+pybind11
+
+# Web + utility
+#flask
+
+# Bio and Stats
+#BioPython
+statsmodels
+#fasta
+
+# other
+pyclustering
+nltk
+multiprocess
+jarvis-tools
+toml
+ase
+#qmpy #OQMD
+
+# Extra index for PyTorch CUDA wheels
+--extra-index-url https://download.pytorch.org/whl/cu128
