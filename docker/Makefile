@@ -38,14 +38,6 @@ run:
       bash -c "mkdir -p /workspace/.local/share/jupyter/runtime && \
                exec jupyter lab --ip=0.0.0.0 --port=$(PORT) --no-browser --allow-root --NotebookApp.token=''"
 
-foo:
-	exec jupyter lab --NotebookApp.url='/workspace/README.md' --ip=0.0.0.0 --port=$(PORT) --no-browser --allow-root --NotebookApp.token=''"
-
-moo:
-		$(IMAGE_NAME):$(TAG) \
-		bash -c "mkdir -p /workspace/.local/share/jupyter/runtime && \
-			exec jupyter lab workspaces export auto > workspace.json "
-
 # Clean up Docker resources
 clean:
 	@echo "[clean] Removing container: $(CONTAINER)"

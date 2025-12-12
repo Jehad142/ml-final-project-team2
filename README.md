@@ -1,7 +1,7 @@
 # ml-final-project-team2
 
 Final project for MSSE Machine Learning course.  
-This repository contains code, data, and Docker configuration for building reproducible ML pipelines.
+This repository contains src, data, and Docker configuration for building reproducible ML pipelines.
 
 ---
 
@@ -57,5 +57,5 @@ After `make run`, open your browser at:
 http://127.0.0.1:8888/lab
 ```
 
-Navigate to `/workspace/code/jarvis/notebooks/discovery.ipynb` or `/workspace/code/nomad/notebooks/eda.ipynb` to start exploring the ML workflows.
+Navigate to `/workspace/src/jarvis/notebooks/discovery.ipynb` or `/workspace/src/nomad/notebooks/eda.ipynb` to start exploring the ML workflows.
 
