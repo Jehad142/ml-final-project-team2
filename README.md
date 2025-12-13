@@ -26,12 +26,26 @@ Setup Docker user
 ```
 sudo groupadd docker        # creates the group if it doesn’t exist
 sudo usermod -aG docker $USER
+newgrp docker               # so the group membership takes effect
 ```
 
-Then log out and back in (or run `newgrp docker`) so the group membership takes effect. After that you can run:
+Test your configuration:
 ```
 docker run hello-world
 ```
+
+To run and build the image, from the project root (`ml-final-project-team2`) run:
+```bash
+make 
+```
+and point your browser to `http://127.0.0.1:8888/lab` after the images builds and runs.
+
+Explore our notebooks in
+ - `src/jarvis/notebooks`: ML pipeline for `jarvis` dataset
+ - `src/nomad/notebooks`: ML pipeline  for `nomad` datasets
+
+---
+Addition Docker build instructons.
 
 To build the image, from the project root (`ml-final-project-team2`) run:
 
