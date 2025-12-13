@@ -47,7 +47,7 @@ To run the container and launch JupyterLab:
 make run
 ```
 
-This will start the container with GPU support (`--gpus all`), mount your project root into `/workspace` inside the container, expose JupyterLab on port `8888`, disable authentication for local development (`--ServerApp.token=''`), and start JupyterLab at `http://127.0.0.1:8888/lab`. Stop the container with `Ctrl+C`.
+This will start the container with ~GPU support (`--gpus all`)~ CPU by default (run_gpu requires docker host support), mount your project root into `/workspace` inside the container, expose JupyterLab on port `8888`, disable authentication for local development (`--ServerApp.token=''`), and start JupyterLab at `http://127.0.0.1:8888/lab`. Stop the container with `Ctrl+C`.
 
 To clean up stopped containers and dangling images:
 
